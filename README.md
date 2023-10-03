@@ -14,7 +14,7 @@
 Installation from PyPI:
 
 ```
-pip install ecgmdatasets
+pip install ecgdatasets
 ```
 
 Installation from GitHub:
