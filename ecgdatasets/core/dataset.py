@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 
 class EcgDataset(Dataset):
     """
-    Base Class For making datasets which are compatible with ecgdatasets.
+    Base class for making datasets which are compatible with ecgdatasets.
     It is necessary to override the ``__getitem__`` and ``__len__`` method.
     """
 
