@@ -1,5 +1,5 @@
 from pathlib import Path
-from hashlib import sha256
+from hashlib import md5
 
 def _check_integrity(path, hash_, calculate_hash):
     """
@@ -16,13 +16,13 @@ def _check_integrity(path, hash_, calculate_hash):
     else:
         return False
 
-def _calculate_sha256(path):
+def _calculate_md5(path):
     """
     :args:
         path (str):
     """
     with open(path, 'rb') as f:
         bytes = f.read()
-        hash_ = sha256(bytes)
+        hash_ = md5(bytes)
 
     return hash_.hexdigest()
