@@ -12,12 +12,24 @@ class EcgDataset(Dataset):
     def __init__(
         self,
         root,
+        download=False,
+        mapper=None,
         ):
         """
         :args:
             root (string): root directory of dataset.
+            download (bool):  If true, downloads the dataset from the internet and
+                puts it in root directory. If dataset is already downloaded, it is
+                not downloaded again.
+            mapper(callable or None):   function to transform targets. If None, it 
+                is used default mapper.
         """
         self.root = Path(root).expanduser()
+        self.mapper = mapper
+
+    @property
+    def frequency(self):
+        raise NotImplementedError
 
     def __getitem__(self, idx):
         """
@@ -41,5 +53,5 @@ class EcgDataset(Dataset):
         lines = [head] + [' ' * self._repr_indent + line for line in body]
         return '\n'.join(lines)
 
-    def extra_repr(self) -> str:
+    def extra_repr(self):
         return ''
