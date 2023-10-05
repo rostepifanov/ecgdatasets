@@ -39,7 +39,7 @@ class PhysioNetDataset(EcgDataset):
         if not self._check_integrity():
             raise RuntimeError('Dataset not found. You can use download=True to download it.')
 
-        self.data, self.targets = self._load_data()
+        self.data = self._load_data()
 
     @property
     def _name(self):

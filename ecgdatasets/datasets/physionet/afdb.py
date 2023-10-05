@@ -53,4 +53,4 @@ class AFDB(PhysioNetDataset):
         return self.hashs[self.version]
 
     def _load_data(self):
-        return None, None
+        raise NotImplementedError

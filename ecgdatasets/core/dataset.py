@@ -9,6 +9,10 @@ class EcgDataset(Dataset):
 
     _repr_indent = 4
 
+    _default_channel_order = [
+        'i', 'ii', 'iii', 'avr', 'avl', 'avf', 'v1', 'v2', 'v3', 'v4', 'v5', 'v6'
+    ]
+
     def __init__(
         self,
         root,
