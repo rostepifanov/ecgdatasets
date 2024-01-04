@@ -37,9 +37,9 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True) # ready to use wit
 
 The list of all datasets:
 
-    - [LUDB](https://physionet.org/content/ludb/)
-    - [PTBXL](https://physionet.org/content/ptb-xl/)
-    - [INCARTDB](https://physionet.org/content/incartdb/)
+  - [LUDB](https://physionet.org/content/ludb/)
+  - [PTBXL](https://physionet.org/content/ptb-xl/)
+  - [INCARTDB](https://physionet.org/content/incartdb/)
 
 ## Citing
 
