@@ -24,14 +24,22 @@ pip install git+https://github.com/rostepifanov/ecgdatasets
 ```
 
 ## A simple example
-```python
 
+```python
+import ecgdatasets as edb
+from torch.utils.data import DataLoader
+
+dataset = edb.PTBXL('.', '1.0.3', download=True, mapper=None) # torch.Dataset
+dataloader = DataLoader(dataset, batch_size=32, shuffle=True) # ready to use with torch.nn.Module
 ```
 
 ## List of datasets
 
 The list of all datasets:
 
+    - [LUDB](https://physionet.org/content/ludb/)
+    - [PTBXL](https://physionet.org/content/ptb-xl/)
+    - [INCARTDB](https://physionet.org/content/incartdb/)
 
 ## Citing
 
