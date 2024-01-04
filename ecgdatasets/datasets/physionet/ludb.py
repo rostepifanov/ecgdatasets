@@ -5,8 +5,8 @@ from zipfile import ZipFile
 
 from ecgdatasets.datasets.physionet.dataset import PhysioNetDataset
 
-class LUBD(PhysioNetDataset):
-    """LUBD. Read more in https://physionet.org/content/ludb/
+class LUDB(PhysioNetDataset):
+    """LUDB. Read more in https://physionet.org/content/ludb/
     """
     default_version = '1.0.1'
 
