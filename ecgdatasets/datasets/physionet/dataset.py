@@ -74,11 +74,13 @@ class PhysioNetDataset(EcgDataset):
             if not self._zippath.parent.is_dir():
                 self._zippath.parent.mkdir(parents=True, exist_ok=True)
 
+            length = (int(req.headers['Content-Length']) + 127) // 128
+
             with open(self._zippath, 'wb') as f:
-                for chunk in tqdm(req):
+                for chunk in tqdm(req, total=length):
                     f.write(chunk)
         else:
-            raise RuntimeError('Remote resourse {} is not avialable.'.format(resourse))
+            raise RuntimeError('Remote resourse {} is not avialable.'.format(self._url))
 
     def _load_data(self):
         raise NotImplementedError
