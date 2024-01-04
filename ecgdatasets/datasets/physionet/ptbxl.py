@@ -26,7 +26,7 @@ class PTBXL(PhysioNetDataset):
     def __init__(
         self,
         root,
-        version,
+        version=default_version,
         download=False,
         mapper=None,
         ):
