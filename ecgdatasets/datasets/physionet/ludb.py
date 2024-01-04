@@ -41,7 +41,9 @@ class LUBD(PhysioNetDataset):
         :args:
             idx (int): index
         """
-        return self.data[idx+1]
+        key = [*self.data.keys()][idx]
+
+        return self.data[key]
 
     def __len__(self):
         return len(self.data)
