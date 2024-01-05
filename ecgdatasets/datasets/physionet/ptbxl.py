@@ -30,6 +30,16 @@ class PTBXL(PhysioNetDataset):
         download=False,
         mapper=None,
         ):
+        """
+            :args:
+                root (string): root directory of dataset.
+                version (string): version of dataset for usage.
+                download (bool):  If true, downloads the dataset from the internet and
+                    puts it in root directory. If dataset is already downloaded, it is
+                    not downloaded again.
+                mapper(callable or None):   function to transform targets. If None, it
+                    is used default mapper.
+        """
         version = version if version in self.allowed_versions else self.default_version
         super().__init__(root, version, download, mapper)
 
@@ -38,10 +48,6 @@ class PTBXL(PhysioNetDataset):
         return 500
 
     def __getitem__(self, idx):
-        """
-        :args:
-            idx (int): index
-        """
         key = [*self.data.keys()][idx]
 
         return self.data[key]
