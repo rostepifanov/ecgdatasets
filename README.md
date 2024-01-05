@@ -1,10 +1,10 @@
-# Ecgdatasets
+# **E**cg**d**ata**s**ets
 
 ## Table of contents
 - [Authors](#authors)
 - [Installation](#installation)
 - [A simple example](#a-simple-example)
-- [List of datasets](#list-of-datasets)
+- [Available datasets](#available-datasets)
 - [Citing](#citing)
 
 ## Authors
@@ -14,7 +14,7 @@
 Installation from PyPI:
 
 ```
-pip install ecgmdatasets
+pip install ecgdatasets
 ```
 
 Installation from GitHub:
@@ -24,14 +24,25 @@ pip install git+https://github.com/rostepifanov/ecgdatasets
 ```
 
 ## A simple example
-```python
 
+```python
+import ecgdatasets as edb
+from torch.utils.data import DataLoader
+
+# torch.Dataset
+dataset = edb.PTBXL('.', '1.0.3', download=True, mapper=None)
+
+# torch.DataLoader that is ready to use with torch.nn.Module
+dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 ```
 
-## List of datasets
+## Available datasets
 
-The list of all datasets:
-
+| Name      | Labels | Source |
+| ---:      | :---:  | :---: |
+| LUDB      | -      | [Physionet](https://physionet.org/content/ludb/) |
+| PTBXL     | -      | [Physionet](https://physionet.org/content/ptb-xl/) |
+| INCARTDB  | -      | [Physionet](https://physionet.org/content/ptb-xl/)|
 
 ## Citing
 

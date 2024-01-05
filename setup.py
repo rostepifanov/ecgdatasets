@@ -2,7 +2,7 @@ import setuptools
 
 from pathlib import Path
 
-INSTALL_REQUIRES = ['torch>=1.4.0']
+INSTALL_REQUIRES = ['torch>=1.4.0', 'tqdm>=4.40.0']
 
 def get_version():
     locals_ = dict()
@@ -28,7 +28,7 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=['tests']),
     python_requires='>=3.7',
     install_requires=INSTALL_REQUIRES,
-    extras_require={'tests': ['pytest']},
+    extras_require={'tests': ['pytest', 'wfdb>=4.1.2']},
     classifiers=[
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
