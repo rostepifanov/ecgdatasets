@@ -1,8 +1,11 @@
 import pytest
 
 import os
+import wfdb
+import numpy as np
 
 from pathlib import Path
+from zipfile import ZipFile
 
 from ecgdatasets.datasets.physionet.incartdb import INCARTDB
 
@@ -17,19 +20,38 @@ def test_INCARTDB_CASE_create_AND_no_exist():
 @pytest.mark.incartdb
 @pytest.mark.physionet
 @pytest.mark.skipif(os.getenv('EDSLOAD', None) is None, reason='Set EDSLOAD to run tests.')
-def test_INCARTDB_CASE_download_version_1_0_0():
+def test_INCARTDB_CASE_create_version_1_0_0():
     datadir = Path(__file__).parent.parent.parent.parent / 'files'
 
     dataset = INCARTDB(datadir, '1.0.0', download=True, mapper=None)
 
     assert len(dataset) == 75
 
-@pytest.mark.incartdb
-@pytest.mark.physionet
-@pytest.mark.skipif(os.getenv('EDSLOAD', None) is None, reason='Set EDSLOAD to run tests.')
-def test_INCARTDB_CASE_check_shape():
-    datadir = Path(__file__).parent.parent.parent.parent / 'files'
+    with ZipFile(dataset._zippath, 'r') as zf:
+        for path in zf.namelist():
+            path = Path(path)
 
-    dataset = INCARTDB(datadir, '1.0.0', download=True, mapper=None)
+            if path.suffix == '.dat':
+                datpath = path
+                heapath = path.with_suffix('.hea')
 
-    assert dataset[0].shape == (462600, 12)
+                ecg = zf.read(str(datpath))
+                header = zf.read(str(heapath))
+
+                name = int(path.stem[1:])
+
+                with open(datadir / datpath.name, 'wb') as f:
+                    f.write(ecg)
+
+                with open(datadir / heapath.name, 'wb') as f:
+                    f.write(header)
+
+                wfdbdatum = wfdb.rdsamp(datadir / datpath.stem)[0]
+
+                (datadir / datpath.name).unlink()
+                (datadir / heapath.name).unlink()
+
+                datum = dataset.data[name]
+
+                assert datum.shape == wfdbdatum.shape
+                assert np.allclose(datum, wfdbdatum)
