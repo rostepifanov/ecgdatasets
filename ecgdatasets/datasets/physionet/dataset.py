@@ -8,8 +8,7 @@ import ecgdatasets.datasets.misc as M
 from ecgdatasets.core import EcgDataset
 
 class PhysioNetDataset(EcgDataset):
-    """
-    Base class for making datasets from PhysioNet source.
+    """Base class for making datasets from PhysioNet source.
     """
     _template_url = 'https://www.physionet.org/static/published-projects/{}/{}-{}.zip'
 
@@ -21,14 +20,14 @@ class PhysioNetDataset(EcgDataset):
         mapper=None,
         ):
         """
-        :args:
-            root (string): root directory of dataset.
-            version (string): version of dataset for usage.
-            download (bool):  If true, downloads the dataset from the internet and
-                puts it in root directory. If dataset is already downloaded, it is
-                not downloaded again.
-            mapper(callable or None):   function to transform targets. If None, it
-                is used default mapper.
+            :args:
+                root (string): root directory of dataset.
+                version (string): version of dataset for usage.
+                download (bool):  If true, downloads the dataset from the internet and
+                    puts it in root directory. If dataset is already downloaded, it is
+                    not downloaded again.
+                mapper(callable or None):   function to transform targets. If None, it
+                    is used default mapper.
         """
         super().__init__(root, download, mapper)
         self.version = version
@@ -43,10 +42,18 @@ class PhysioNetDataset(EcgDataset):
 
     @property
     def _name(self):
+        """
+            :return:
+                shortname of the dataset
+        """
         raise NotImplementedError
 
     @property
     def _fullname(self):
+        """
+            :return:
+                dataset name according to physionet
+        """
         raise NotImplementedError
 
     @property
@@ -83,4 +90,8 @@ class PhysioNetDataset(EcgDataset):
             raise RuntimeError('Remote resourse {} is not avialable.'.format(self._url))
 
     def _load_data(self):
+        """
+            :return:
+                data that loaded from physionet archive
+        """
         raise NotImplementedError
