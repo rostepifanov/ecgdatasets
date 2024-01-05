@@ -81,15 +81,20 @@ class INCARTDB(PhysioNetDataset):
                     datpath = path
                     heapath = path.with_suffix('.hea')
 
+                    header = zf.read(str(heapath))
+                    lines = header.decode().split('\n')
+
+                    _, nleads, _, length = lines[0].split(' ')[:4]
+
                     ecg = zf.read(str(datpath))
                     ecg = np.frombuffer(ecg, np.int16)
-                    ecg.shape = (462600, 12)
+                    ecg.shape = (int(length), int(nleads))
 
                     header = zf.read(str(heapath))
 
                     gains, baselines = [], []
 
-                    for s in header.decode().split('\n')[1:13]:
+                    for s in lines[1:int(nleads)+1]:
                         s = s.split(' ')[2]
 
                         gain, baseline = int(s), 0.
