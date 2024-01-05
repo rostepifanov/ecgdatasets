@@ -1,5 +1,3 @@
-import hashlib
-
 from tqdm import tqdm
 from requests import get
 
