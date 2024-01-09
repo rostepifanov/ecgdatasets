@@ -1,5 +1,11 @@
 # **E**cg**d**ata**s**ets
 
+![Python version support](https://img.shields.io/pypi/pyversions/ecgdatasets)
+[![PyPI version](https://badge.fury.io/py/ecgdatasets.svg)](https://badge.fury.io/py/ecgdatasets)
+[![Downloads](https://pepy.tech/badge/ecgdatasets/month)](https://pepy.tech/project/ecgdatasets?versions=0.0.*)
+
+Ecgdatasets is a Python library with esay-to-use interfaces for ECG datasets.
+
 ## Table of contents
 - [Authors](#authors)
 - [Installation](#installation)
@@ -26,11 +32,11 @@ pip install git+https://github.com/rostepifanov/ecgdatasets
 ## A simple example
 
 ```python
-import ecgdatasets as edb
+import ecgdatasets as eds
 from torch.utils.data import DataLoader
 
 # torch.Dataset
-dataset = edb.PTBXL('.', '1.0.3', download=True, mapper=None)
+dataset = eds.PTBXL('.', '1.0.3', download=True, mapper=None)
 
 # torch.DataLoader that is ready to use with torch.nn.Module
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
@@ -38,11 +44,11 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 ## Available datasets
 
-| Name      | Labels | Source |
-| ---:      | :---:  | :---: |
-| LUDB      | -      | [Physionet](https://physionet.org/content/ludb/) |
-| PTBXL     | -      | [Physionet](https://physionet.org/content/ptb-xl/) |
-| INCARTDB  | -      | [Physionet](https://physionet.org/content/ptb-xl/)|
+| Name      | Labels | Source                                             | Comments |
+| ---:      | :---:  | :---:                                              | :---:    |
+| LUDB      | -      | [Physionet](https://physionet.org/content/ludb/)   | -        |
+| PTBXL     | -      | [Physionet](https://physionet.org/content/ptb-xl/) | -        |
+| INCARTDB  | -      | [Physionet](https://physionet.org/content/ptb-xl/) | -        |
 
 ## Citing
 
