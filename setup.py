@@ -2,7 +2,7 @@ import setuptools
 
 from pathlib import Path
 
-INSTALL_REQUIRES = ['torch>=1.4.0', 'tqdm>=4.40.0']
+INSTALL_REQUIRES = ['torch>=1.4.0', 'numpy>=1.24.4', 'pandas>=2.0.3', 'tqdm>=4.40.0']
 
 def get_version():
     locals_ = dict()

@@ -11,4 +11,4 @@ class FigShareDataset(EcgDataset):
 
     @property
     def _url(self):
-        return self._template_url(self._id)
+        return self._template_url.format(self._id)
