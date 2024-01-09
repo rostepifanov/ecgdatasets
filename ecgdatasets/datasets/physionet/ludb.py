@@ -47,27 +47,17 @@ class LUDB(PhysioNetDataset):
         return 500
 
     def __getitem__(self, idx):
-        key = [*self.data.keys()][idx]
+        ecg = super().__getitem__(idx)
 
-        return self.data[key]
-
-    def __len__(self):
-        return len(self.data)
-
-    def extra_repr(self):
-        return ''
+        return ecg
 
     @property
-    def _name(self):
+    def name(self):
         return 'ludb'
 
     @property
     def _fullname(self):
         return 'lobachevsky-university-electrocardiography-database'
-
-    @property
-    def _hash(self):
-        return self.hashs[self.version]
 
     def _load_data(self):
         data = dict()
