@@ -56,12 +56,14 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 If you find this library useful for your research, please consider citing:
 
 ```
-@misc{epifanov2023ecgdatasets,
-  Author = {Rostislav Epifanov},
-  Title = {Ecgdatasets},
-  Year = {2023},
-  Publisher = {GitHub},
-  Journal = {GitHub repository},
-  Howpublished = {\url{https://github.com/rostepifanov/ecgdatasets}}
+@software{epifanov2024ecgdatasets,
+  author       = {Epifanov, Rostislav},
+  title        = {rostepifanov/ecgdatasets: 0.0.1},
+  month        = {jan},
+  year         = {2024},
+  publisher    = {Zenodo},
+  version      = {v0.0.1},
+  doi          = {10.5281/zenodo.10479306},
+  url          = {https://doi.org/10.5281/zenodo.10479306}
 }
 ```
