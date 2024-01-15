@@ -44,12 +44,12 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 ## Available datasets
 
-| Name      | Labels | Source                                                  | Comments |
-| ---:      | :---:  | :---:                                                   | :---:    |
-| LUDB      | -      | [PhysioNet](https://physionet.org/content/ludb/)        | -        |
-| PTBXL     | -      | [PhysioNet](https://physionet.org/content/ptb-xl/)      | -        |
-| INCARTDB  | -      | [PhysioHet](https://physionet.org/content/ptb-xl/)      | -        |
-| CUSPH     | -      | [FigShare](https://figshare.com/collections/_/4560497/) | -        |
+| Name      | Size  | Frequency | Labels | Source                                                 | Comments |
+| ---:      | :---: | :---:     |:---:   | :---:                                                  | :---:    |
+| LUDB      | 200   | 500       | -      | [PhysioNet](https://physionet.org/content/ludb/)       | -        |
+| PTBXL     | 21799 | 500       | -      | [PhysioNet](https://physionet.org/content/ptb-xl/)     | -        |
+| INCARTDB  | 75    | 257       | -      | [PhysioHet](https://physionet.org/content/ptb-xl/)     | -        |
+| CUSPH     | 10646 | 500       | -      | [FigShare](https://figshare.com/collections/_/4560497) | -        |
 
 ## Citing
 
