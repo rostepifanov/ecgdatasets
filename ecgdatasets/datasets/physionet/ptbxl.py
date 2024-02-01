@@ -12,10 +12,12 @@ class PTBXL(PhysioNetDataset):
     default_version = '1.0.3'
 
     allowed_versions = [
+        '1.0.1',
         '1.0.3',
     ]
 
     hashs = {
+        '1.0.1': 'f1558ce941870ba39402ba6a1b96f5e6',
         '1.0.3': '052c28a24e1a8ad222748bee399a79ee',
     }
 

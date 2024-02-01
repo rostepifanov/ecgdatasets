@@ -20,10 +20,11 @@ def test_PTBXL_CASE_create_AND_no_exist():
 @pytest.mark.ptbxl
 @pytest.mark.physionet
 @pytest.mark.skipif(os.getenv('EDSLOAD', None) is None, reason='Set EDSLOAD to run tests.')
-def test_PTBXL_CASE_create_version_1_0_3():
+@pytest.mark.parametrize('version', PTBXL.allowed_versions)
+def test_PTBXL_CASE_create(version):
     datadir = Path(__file__).parent.parent.parent.parent / 'files'
 
-    dataset = PTBXL(datadir, '1.0.3', download=True, mapper=None)
+    dataset = PTBXL(datadir, version, download=True, mapper=None)
 
     assert len(dataset) == 21799
 
