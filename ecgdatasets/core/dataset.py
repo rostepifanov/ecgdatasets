@@ -1,7 +1,9 @@
+import warnings
+
 from tqdm import tqdm
-from requests import get
 from pathlib import Path
 from torch.utils.data import Dataset
+from requests import get, exceptions
 
 import ecgdatasets.core.misc as M
 
@@ -111,23 +113,48 @@ class EcgDataset(Dataset):
     def _check_integrity(self):
         return M._check_integrity(self._zippath, self._hash, M._calculate_md5)
 
-    def download(self):
+    def _get_stream(self, bytes):
+        headers = {'Range': f'bytes={bytes}-'}
+        req = get(self._url, headers=headers, stream=True, timeout=180)
+
+        if req.status_code == 200 or req.status_code == 206:
+            return req
+        else:
+            msg = 'Remote resourse {} is not avialable.'
+            raise RuntimeError(msg.format(self._url))
+
+    def download(self, nretries=5):
         if self._check_integrity():
             return
 
-        req = get(self._url, stream=True)
+        bytes = 0
+        retry = 0
 
-        if req.status_code == 200:
+        while retry < nretries:
+            req = self._get_stream(bytes)
+
             if not self._zippath.parent.is_dir():
                 self._zippath.parent.mkdir(parents=True, exist_ok=True)
 
-            length = (int(req.headers['Content-Length']) + 127) // 128
+            try:
+                length = (int(req.headers['Content-Length']) + 127) // 128
 
-            with open(self._zippath, 'wb') as f:
-                for chunk in tqdm(req, total=length):
-                    f.write(chunk)
-        else:
-            raise RuntimeError('Remote resourse {} is not avialable.'.format(self._url))
+                with open(self._zippath, 'wb' if bytes == 0 else 'ab') as f:
+                    for chunk in tqdm(req, total=length):
+                        f.write(chunk)
+                        bytes += 128
+
+                    break
+
+            except exceptions.Timeout:
+                retry += 1
+
+                msg = 'Unstable network connection. Retry downloading up to {} tries'
+                warnings.warn( msg.format(retry), RuntimeWarning)
+
+        if retry == nretries:
+            msg = 'Failed to download from resourse {}.'
+            raise RuntimeError(msg.format(self._url))
 
     def _load_data(self):
         """
