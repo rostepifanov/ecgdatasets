@@ -21,6 +21,11 @@ class PTBXL(PhysioNetDataset):
         '1.0.3': '052c28a24e1a8ad222748bee399a79ee',
     }
 
+    _lengths = {
+        '1.0.1': 21837,
+        '1.0.3': 21799,
+    }
+
     _raw_channel_order = [
         'i', 'ii', 'iii', 'avr', 'avl', 'avf', 'v1', 'v2', 'v3', 'v4', 'v5', 'v6'
     ]

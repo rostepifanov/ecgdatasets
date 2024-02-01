@@ -26,7 +26,7 @@ def test_PTBXL_CASE_create(version):
 
     dataset = PTBXL(datadir, version, download=True, mapper=None)
 
-    assert len(dataset) == 21799
+    assert len(dataset) == PTBXL._lengths[version]
 
     with ZipFile(dataset._zippath, 'r') as zf:
         for path in zf.namelist():
