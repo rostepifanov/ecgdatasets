@@ -47,27 +47,17 @@ class LUDB(PhysioNetDataset):
         return 500
 
     def __getitem__(self, idx):
-        key = [*self.data.keys()][idx]
+        ecg = super().__getitem__(idx)
 
-        return self.data[key]
-
-    def __len__(self):
-        return len(self.data)
-
-    def extra_repr(self):
-        return ''
+        return ecg
 
     @property
-    def _name(self):
+    def name(self):
         return 'ludb'
 
     @property
     def _fullname(self):
         return 'lobachevsky-university-electrocardiography-database'
-
-    @property
-    def _hash(self):
-        return self.hashs[self.version]
 
     def _load_data(self):
         data = dict()
@@ -80,15 +70,18 @@ class LUDB(PhysioNetDataset):
                     datpath = path
                     heapath = path.with_suffix('.hea')
 
+                    header = zf.read(str(heapath))
+                    lines = header.decode().split('\n')
+
+                    _, nleads, _, length = lines[0].split(' ')[:4]
+
                     ecg = zf.read(str(datpath))
                     ecg = np.frombuffer(ecg, np.int16)
-                    ecg.shape = (5000, 12)
-
-                    header = zf.read(str(heapath))
+                    ecg.shape = (int(length), int(nleads))
 
                     gains, baselines = [], []
 
-                    for s in header.decode().split('\n')[1:13]:
+                    for s in lines[1:int(nleads)+1]:
                         s = s.split(' ')[2]
                         s = s.split('/')[0]
                         s = s.split(')')[0]

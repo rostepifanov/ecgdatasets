@@ -12,11 +12,18 @@ class PTBXL(PhysioNetDataset):
     default_version = '1.0.3'
 
     allowed_versions = [
+        '1.0.1',
         '1.0.3',
     ]
 
     hashs = {
+        '1.0.1': 'f1558ce941870ba39402ba6a1b96f5e6',
         '1.0.3': '052c28a24e1a8ad222748bee399a79ee',
+    }
+
+    _lengths = {
+        '1.0.1': 21837,
+        '1.0.3': 21799,
     }
 
     _raw_channel_order = [
@@ -48,27 +55,17 @@ class PTBXL(PhysioNetDataset):
         return 500
 
     def __getitem__(self, idx):
-        key = [*self.data.keys()][idx]
+        ecg = super().__getitem__(idx)
 
-        return self.data[key]
-
-    def __len__(self):
-        return len(self.data)
-
-    def extra_repr(self):
-        return ''
+        return ecg
 
     @property
-    def _name(self):
+    def name(self):
         return 'ptb-xl'
 
     @property
     def _fullname(self):
         return 'ptb-xl-a-large-publicly-available-electrocardiography-dataset'
-
-    @property
-    def _hash(self):
-        return self.hashs[self.version]
 
     def _load_data(self):
         data = dict()
@@ -82,15 +79,18 @@ class PTBXL(PhysioNetDataset):
                         datpath = path
                         heapath = path.with_suffix('.hea')
 
+                        header = zf.read(str(heapath))
+                        lines = header.decode().split('\n')
+
+                        _, nleads, _, length = lines[0].split(' ')[:4]
+
                         ecg = zf.read(str(datpath))
                         ecg = np.frombuffer(ecg, np.int16)
-                        ecg.shape = (5000, 12)
-
-                        header = zf.read(str(heapath))
+                        ecg.shape = (int(length), int(nleads))
 
                         gains, baselines = [], []
 
-                        for s in header.decode().split('\n')[1:13]:
+                        for s in lines[1:int(nleads)+1]:
                             s = s.split(' ')[2]
                             s = s.split('/')[0]
                             s = s.split(')')[0]

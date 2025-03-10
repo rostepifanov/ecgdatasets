@@ -1,5 +1,11 @@
 # **E**cg**d**ata**s**ets
 
+![Python version support](https://img.shields.io/pypi/pyversions/ecgdatasets)
+[![PyPI version](https://badge.fury.io/py/ecgdatasets.svg)](https://badge.fury.io/py/ecgdatasets)
+[![Downloads](https://pepy.tech/badge/ecgdatasets/month)](https://pepy.tech/project/ecgdatasets?versions=0.0.*)
+
+Ecgdatasets is a Python library with esay-to-use interfaces for ECG datasets.
+
 ## Table of contents
 - [Authors](#authors)
 - [Installation](#installation)
@@ -26,11 +32,11 @@ pip install git+https://github.com/rostepifanov/ecgdatasets
 ## A simple example
 
 ```python
-import ecgdatasets as edb
+import ecgdatasets as eds
 from torch.utils.data import DataLoader
 
 # torch.Dataset
-dataset = edb.PTBXL('.', '1.0.3', download=True, mapper=None)
+dataset = eds.PTBXL('.', '1.0.3', download=True, mapper=None)
 
 # torch.DataLoader that is ready to use with torch.nn.Module
 dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
@@ -38,23 +44,26 @@ dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 ## Available datasets
 
-| Name      | Labels | Source |
-| ---:      | :---:  | :---: |
-| LUDB      | -      | [Physionet](https://physionet.org/content/ludb/) |
-| PTBXL     | -      | [Physionet](https://physionet.org/content/ptb-xl/) |
-| INCARTDB  | -      | [Physionet](https://physionet.org/content/ptb-xl/)|
+| Name      | Size  | Frequency | Labels | Source                                                 | Comments |
+| ---:      | :---: | :---:     |:---:   | :---:                                                  | :---:    |
+| LUDB      | 200   | 500       | -      | [PhysioNet](https://physionet.org/content/ludb/)       | -        |
+| PTBXL     | 21799 | 500       | -      | [PhysioNet](https://physionet.org/content/ptb-xl/)     | -        |
+| INCARTDB  | 75    | 257       | -      | [PhysioHet](https://physionet.org/content/ptb-xl/)     | -        |
+| CUSPH     | 10646 | 500       | -      | [FigShare](https://figshare.com/collections/_/4560497) | -        |
 
 ## Citing
 
 If you find this library useful for your research, please consider citing:
 
 ```
-@misc{epifanov2023ecgdatasets,
-  Author = {Rostislav Epifanov},
-  Title = {Ecgdatasets},
-  Year = {2023},
-  Publisher = {GitHub},
-  Journal = {GitHub repository},
-  Howpublished = {\url{https://github.com/rostepifanov/ecgdatasets}}
+@software{epifanov2024ecgdatasets,
+  author       = {Epifanov, Rostislav},
+  title        = {rostepifanov/ecgdatasets: 0.0.1},
+  month        = {jan},
+  year         = {2024},
+  publisher    = {Zenodo},
+  version      = {v0.0.1},
+  doi          = {10.5281/zenodo.10479306},
+  url          = {https://doi.org/10.5281/zenodo.10479306}
 }
 ```

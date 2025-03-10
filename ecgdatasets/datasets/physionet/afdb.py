@@ -1,3 +1,8 @@
+import numpy as np
+
+from pathlib import Path
+from zipfile import ZipFile
+
 from ecgdatasets.datasets.physionet.dataset import PhysioNetDataset
 
 class AFDB(PhysioNetDataset):
@@ -28,29 +33,27 @@ class AFDB(PhysioNetDataset):
         return 250
 
     def __getitem__(self, idx):
-        """
-        :args:
-            idx (int): index
-        """
-        raise NotImplementedError
+        ecg = super().__getitem__(idx)
 
-    def __len__(self):
-        raise NotImplementedError
-
-    def extra_repr(self):
-        return ''
+        return ecg
 
     @property
-    def _name(self):
+    def name(self):
         return 'afdb'
 
     @property
     def _fullname(self):
         return 'mit-bih-atrial-fibrillation-database'
 
-    @property
-    def _hash(self):
-        return self.hashs[self.version]
-
     def _load_data(self):
-        raise NotImplementedError
+        data = dict()
+
+        with ZipFile(self._zippath, 'r') as zf:
+            for path in zf.namelist():
+                path = Path(path)
+
+                if path.suffix == '.dat':
+                    datpath = path
+                    heapath = path.with_suffix('.hea')
+
+        return data
