@@ -146,7 +146,7 @@ class EcgDataset(Dataset):
 
                     break
 
-            except exceptions.Timeout:
+            except exceptions.ConnectionError:
                 retry += 1
 
                 msg = 'Unstable network connection. Retry downloading up to {} tries'
